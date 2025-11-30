@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IDIOTENBONUS - Premium Christmas Link-in-Bio</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <script>
+        // Konfiguration für Tailwind CSS mit benutzerdefinierten Weihnachtsfarben (NEUE PALETTE)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'ruby-red': '#E53935', // Vibrantes Rot
+                        'bright-gold': '#FFD700', // Klassisches Gold
+                        'dark-blue-bg': '#0A192F', // Tiefer Mitternachtsblau (Hintergrund)
+                        'card-navy': '#1F334E', // Frostiger Marineblau (Hauptkarte)
+                        'button-base': '#132C4A', // Basis für die Buttons (Dunklerer Navy)
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        /* Angepasste Stile für das Gesamtlayout */
+        body {
+            background-color: #0A192F; /* NEU: Tiefer Mitternachtsblau */
+            color: white;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* ------------------------------------------- */
+        /* SCHNEEFALL ANIMATION (Unverändert, passt perfekt zum Blau) */
+        /* ------------------------------------------- */
+        #snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .snowflake {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0; 
+            user-select: none;
+        }
+
+        @keyframes snow-drift {
+            0% { 
+                transform: translate(0, -100vh); 
+                opacity: 0; 
+            }
+            10% { 
+                opacity: 1; 
+            }
+            50% { 
+                transform: translate(var(--wobble-x, 50px), 0vh); 
+            }
+            90% { 
+                opacity: 1; 
+            }
+            100% { 
+                transform: translate(0, 100vh); 
+                opacity: 0; 
+            }
+        }
+
+        /* ------------------------------------ */
+        /* MAIN CARD (Linktree Container) */
+        /* ------------------------------------ */
+        .main-card {
+            background-color: rgba(31, 51, 78, 0.95); /* card-navy: #1F334E - Frosted Navy */
+            padding: 1.5rem;
+            border-radius: 1.5rem; 
+            /* Tiefer Schatten + Goldener Akzent-Schatten */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.4); 
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Frostiger Rand */
+            z-index: 10; 
+            position: relative; 
+        }
+
+        /* ---------------------------------- */
+        /* NEUES LINK BUTTON REDESIGN (Premium, Edler Look) */
+        /* ---------------------------------- */
+        .link-button {
+            /* Basis: Dunkler, matter Metallic-Look */
+            background-color: #132C4A; /* button-base */
+            color: white;
+            position: relative;
+            overflow: hidden; 
+            padding: 1.2rem; 
+            border-radius: 1rem; /* Moderner, abgerundeter */
+            /* Übergänge für Hover */
+            transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1);
+            /* Tiefe */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7); 
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Hover-Effekt: Aggressiverer Pop und Gold-Glow */
+        .link-button:hover {
+            transform: translateY(-5px) scale(1.03); /* Stärkerer Pop */
+            /* Intensiver Gold-Glow */
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.9), 0 0 30px #FFD700; 
+            background-color: #1F334E; /* Leicht aufhellen (Frost-Effekt) */
+        }
+        
+        /* Icon Farbe (Gold) */
+        .text-accent-icon {
+            color: #FFD700; 
+        }
+
+        /* Pfeil Farbe (Ruby Red) */
+        .text-accent-arrow {
+            color: #E53935; 
+        }
+
+        /* ---------------------------------- */
+        /* GIVEAWAY UND AGE GATE STYLES (An neue Akzente angepasst) */
+        /* ---------------------------------- */
+        .gold-shadow {
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+            border: 3px solid #FFD700;
+            /* Hintergrund-Gradient neu in Ruby-Red */
+            background: linear-gradient(145deg, #E53935 0%, #B71C1C 100%); 
+        }
+
+        .giveaway-box .bg-red-900 {
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .age-gate-glow {
+            box-shadow: 0 0 25px rgba(255, 215, 0, 0.8); 
+            border: 3px solid #FFD700;
+        }
+        
+        #confirm-age-btn {
+            background-color: #FFD700 !important;
+            color: #0A192F !important; /* Textfarbe auf Mitternachtsblau */
+            font-weight: 900 !important;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        #confirm-age-btn:hover {
+            transform: scale(1.02);
+            background-color: #e5c100 !important;
+        }
+    </style>
+    
+    <!-- Firebase Setup (Unverändert) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Globale Variablen aus dem Canvas-Environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db;
+        let auth;
+        let userId = 'anonymous';
+        let isAuthReady = false;
+
+        /**
+         * Wartet auf eine erfolgreiche Firebase-Antwort mit exponentiellem Backoff.
+         */
+        async function retryWithBackoff(apiCall, maxRetries = 5) {
+            for (let i = 0; i < maxRetries; i++) {
+                try {
+                    return await apiCall();
+                } catch (error) {
+                    if (i === maxRetries - 1) {
+                        console.error('API-Aufruf nach mehreren Versuchen fehlgeschlagen:', error);
+                        throw error;
+                    }
+                    const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                }
+            }
+        }
+        
+        /**
+         * Öffnet das Age Gate und zeigt den Hauptinhalt an.
+         */
+        function openMainContent() {
+            document.getElementById('age-gate').classList.add('hidden');
+            document.getElementById('main-content').classList.remove('hidden');
+        }
+
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            
+            // HÄNGE BEIDE KLICK-LISTENER SOFORT NACH DEM LADEN AN
+            document.getElementById('confirm-age-btn').addEventListener('click', () => {
+                setAgeGateStatus(true); 
+            });
+
+            document.getElementById('decline-age-btn').addEventListener('click', () => {
+                console.log('Zugriff verweigert. Weiterleitung zu Google.');
+                window.location.href = 'https://www.google.com'; // Weiterleitung
+            });
+            
+            // Wenn keine Firebase Config vorhanden ist, zeige das Age Gate sofort an.
+            if (Object.keys(firebaseConfig).length === 0) {
+                console.error("Firebase Konfiguration fehlt. Datenbankfunktionen deaktiviert.");
+                document.getElementById('age-gate-spinner').classList.add('hidden');
+                document.getElementById('age-gate-content').classList.remove('hidden');
+                return;
+            }
+
+            try {
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // 1. Authentifizierung
+                if (initialAuthToken) {
+                    await retryWithBackoff(() => signInWithCustomToken(auth, initialAuthToken));
+                } else {
+                    await retryWithBackoff(() => signInAnonymously(auth));
+                }
+
+                // 2. Auth State Listener und Age Gate Check
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        isAuthReady = true;
+                        await checkAgeGateStatus();
+                    } else {
+                        isAuthReady = true;
+                        document.getElementById('age-gate-spinner').classList.add('hidden');
+                        document.getElementById('age-gate-content').classList.remove('hidden');
+                    }
+                });
+
+            } catch (e) {
+                console.error("Fehler bei der Firebase-Initialisierung oder Authentifizierung:", e);
+                document.getElementById('age-gate-spinner').classList.add('hidden');
+                document.getElementById('age-gate-content').classList.remove('hidden');
+            }
+        });
+
+        /**
+         * Überprüft den Age Gate Status in Firestore.
+         */
+        async function checkAgeGateStatus() {
+            if (!isAuthReady || !db) {
+                document.getElementById('age-gate-spinner').classList.add('hidden');
+                document.getElementById('age-gate-content').classList.remove('hidden');
+                return;
+            }
+
+            const ageGateRef = doc(db, 'artifacts', appId, 'users', userId, 'settings', 'ageGate');
+            
+            try {
+                const docSnap = await retryWithBackoff(() => getDoc(ageGateRef));
+                const isVerified = docSnap.exists() && docSnap.data().isVerified === true;
+                
+                if (isVerified) {
+                    openMainContent();
+                } else {
+                    document.getElementById('age-gate-spinner').classList.add('hidden');
+                    document.getElementById('age-gate-content').classList.remove('hidden');
+                }
+            } catch (error) {
+                console.error("Fehler beim Abrufen des Age Gate Status:", error);
+                document.getElementById('age-gate-spinner').classList.add('hidden');
+                document.getElementById('age-gate-content').classList.remove('hidden');
+            }
+        }
+
+        /**
+         * Speichert den Age Gate Status in Firestore und zeigt den Inhalt an.
+         */
+        async function setAgeGateStatus(status) {
+            // CONTENT ÖFFNEN, DAMIT DER KLICK FUNKTIONIERT
+            openMainContent();
+            
+            if (!db || !isAuthReady || !status) {
+                console.warn("Firebase ist nicht bereit oder Status ist falsch. Keine Speicherung.");
+                return;
+            }
+
+            // ASYNCHRON VERSUCHEN, DEN STATUS ZU SPEICHERN
+            const ageGateRef = doc(db, 'artifacts', appId, 'users', userId, 'settings', 'ageGate');
+            
+            try {
+                await retryWithBackoff(() => setDoc(ageGateRef, { isVerified: status, verifiedAt: new Date() }));
+            } catch (error) {
+                console.error("Fehler beim Speichern des Age Gate Status in Firebase:", error);
+            }
+        }
+        
+    </script>
+</head>
+<body class="bg-dark-blue-bg min-h-screen flex justify-center items-start pt-10 pb-16">
+
+    <!-- Container für die dynamisch generierten Schneeflocken -->
+    <div id="snow-container"></div>
+
+    <!-- Age Gate (Overlay) -->
+    <div id="age-gate" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-95">
+        
+        <!-- Ladespinner -->
+        <div id="age-gate-spinner" class="text-white text-lg flex flex-col items-center">
+            <i class="fas fa-spinner fa-spin text-bright-gold text-3xl mb-4"></i>
+            <span>Überprüfe Altersstatus...</span>
+        </div>
+
+        <!-- Age Gate Content -->
+        <div id="age-gate-content" class="hidden w-11/12 max-w-sm p-6 bg-gray-900 rounded-xl text-center age-gate-glow">
+            <h1 class="text-3xl font-extrabold text-white mb-4">ZUGANG GESPERRT</h1>
+            <p class="text-sm text-gray-300 mb-8">
+                Sie müssen das gesetzliche Mindestalter von 18 Jahren bestätigen, um diesen Bereich zu betreten.
+                Glücksspiel kann süchtig machen.
+            </p>
+            <!-- Bestätigungsbutton ist jetzt Gold -->
+            <button id="confirm-age-btn" class="w-full mb-3 py-3 px-6 rounded-full font-black text-lg shadow-lg">
+                Ich bin 18+ Jahre alt
+            </button>
+            <button id="decline-age-btn" class="w-full py-3 px-6 rounded-full bg-gray-700 text-gray-300 font-semibold hover:bg-gray-600 transition-colors">
+                Zurück
+            </button>
+        </div>
+    </div>
+    
+    <!-- Hauptinhalt (Main Content) -->
+    <div id="main-content" class="hidden w-full mx-auto" style="max-width: 420px;">
+        
+        <!-- Die Linktree-Card, die den gesamten Inhalt umgibt -->
+        <div class="main-card w-full">
+
+            <!-- Logo & Titel -->
+            <div class="text-center">
+                
+                <!-- Logo als großes Banner -->
+                <img src="weihnachten-logo.jpg" 
+                     alt="Idiotsbonus Logo Banner" 
+                     class="w-full h-auto max-w-sm mx-auto mb-1" 
+                     onerror="this.onerror=null;this.src='https://placehold.co/420x100/101010/ffffff?text=LOGO+FEHLT'"
+                     style="object-fit: cover;">
+                
+                <!-- Der Schriftzug "IDIOTENBONUS" -->
+                <h1 class="text-5xl font-black mb-3 leading-none">
+                    <span class="text-ruby-red">ID</span><span class="text-white">IOTENBONUS</span>
+                </h1>
+                
+                <!-- Instagram Link -->
+                <a href="https://www.instagram.com/idiotenbonus/" target="_blank" class="inline-flex items-center text-gray-400 hover:text-ruby-red transition-colors mb-6">
+                    <i class="fab fa-instagram mr-2"></i>
+                    <span class="text-sm font-medium">@idiotenbonus</span>
+                </a>
+            </div>
+
+            <!-- Giveaway Box (Gold/Ruby-Red) -->
+            <div class="giveaway-box p-4 mb-8 rounded-2xl gold-shadow">
+                <h2 class="text-2xl font-black text-white text-center mb-4">
+                    🎁 2000€ Christmas Giveaway! 🎅
+                </h2>
+                
+                <div class="flex space-x-3 text-sm font-semibold">
+                    
+                    <div class="flex-1 p-3 bg-red-900 bg-opacity-80 rounded-lg shadow-inner border border-red-700">
+                        <p class="text-center text-gray-100 mb-2 font-bold">Jede Einzahlung</p>
+                        <ul class="space-y-1 text-xs">
+                            <li class="flex justify-between"><span>Pro 50€ Einzahlung</span> <span class="text-bright-gold">→ 5 Ticket</span></li>
+                            <li class="flex justify-between"><span>Pro 100€ Einzahlung</span> <span class="text-bright-gold">→ 10 Tickets</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="flex-1 p-3 bg-red-900 bg-opacity-80 rounded-lg shadow-inner border border-red-700">
+                        <p class="text-center text-gray-100 mb-2 font-bold">Neukunden-Bonus</p>
+                        <ul class="space-y-1 text-xs">
+                            <li class="flex justify-between"><span>Pro 50€ Einzahlung</span> <span class="text-bright-gold">→ 10 Tickets</span></li>
+                            <li class="flex justify-between"><span>Pro 100€ Einzahlung</span> <span class="text-bright-gold">→ 20 Tickets</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Link Buttons (Midnight/Gold/Ruby Look) -->
+            <div class="space-y-4">
+                
+                <!-- Offizieller Giveaway Link (Placeholder #) -->
+                <a href="#" class="link-button flex flex-col">
+                    <div class="flex items-center justify-between">
+                        <p class="font-extrabold text-xl flex items-center">
+                            <span class="text-2xl mr-3 text-accent-icon">⭐</span>
+                            Offizieller Giveaway Link
+                        </p>
+                        <i class="fas fa-chevron-right text-accent-arrow"></i>
+                    </div>
+                    <p class="text-sm font-medium text-gray-400 mt-1 pl-10">
+                        Alle Infos und Teilnahmebedingungen hier!
+                    </p>
+                </a>
+                
+                <!-- Pistolo Link -->
+                <a href="https://tinyurl.com/PistoloMerkur" target="_blank" class="link-button flex flex-col">
+                    <div class="flex items-center justify-between">
+                        <p class="font-extrabold text-xl flex items-center">
+                            <span class="text-2xl mr-3 text-accent-icon">💰</span>
+                            Pistolo
+                        </p>
+                        <i class="fas fa-chevron-right text-accent-arrow"></i>
+                    </div>
+                    <p class="text-sm font-medium text-gray-400 mt-1 pl-10">
+                        100% bis zu 500€ + 200 Freegames
+                    </p>
+                </a>
+                
+                <!-- RTBET Link -->
+                <a href="https://tinyurl.com/RTBetMerkur" target="_blank" class="link-button flex flex-col">
+                    <div class="flex items-center justify-between">
+                        <p class="font-extrabold text-xl flex items-center">
+                            <span class="text-2xl mr-3 text-accent-icon">🎰</span>
+                            RTBET
+                        </p>
+                        <i class="fas fa-chevron-right text-accent-arrow"></i>
+                    </div>
+                    <p class="text-sm font-medium text-gray-400 mt-1 pl-10">
+                        100% bis zu 500€ + 200 Freegames
+                    </p>
+                </a>
+                
+                <!-- Neon54 Link -->
+                <a href="https://tinyurl.com/Neon54Merkur" target="_blank" class="link-button flex flex-col">
+                    <div class="flex items-center justify-between">
+                        <p class="font-extrabold text-xl flex items-center">
+                            <span class="text-2xl mr-3 text-accent-icon">✨</span>
+                            Neon54
+                        </p>
+                        <i class="fas fa-chevron-right text-accent-arrow"></i>
+                    </div>
+                    <p class="text-sm font-medium text-gray-400 mt-1 pl-10">
+                        100% bis zu 500€ + 200 Freegames
+                    </p>
+                </a>
+
+                 <!-- MyEmpire Link -->
+                <a href="https://tinyurl.com/MyEmpireMerkur" target="_blank" class="link-button flex flex-col">
+                    <div class="flex items-center justify-between">
+                        <p class="font-extrabold text-xl flex items-center">
+                            <span class="text-2xl mr-3 text-accent-icon">👑</span>
+                            MyEmpire
+                        </p>
+                        <i class="fas fa-chevron-right text-accent-arrow"></i>
+                    </div>
+                    <p class="text-sm font-medium text-gray-400 mt-1 pl-10">
+                        100% bis zu 500€ + 200 Freegames
+                    </p>
+                </a>
+
+                <!-- Legiano Link -->
+                <a href="https://tinyurl.com/LegianoMerkur" target="_blank" class="link-button flex flex-col">
+                    <div class="flex items-center justify-between">
+                        <p class="font-extrabold text-xl flex items-center">
+                            <span class="text-2xl mr-3 text-accent-icon">⚔️</span>
+                            Legiano
+                        </p>
+                        <i class="fas fa-chevron-right text-accent-arrow"></i>
+                    </div>
+                    <p class="text-sm font-medium text-gray-400 mt-1 pl-10">
+                        350% bis zu 500€ + 200 Freegames
+                    </p>
+                </a>
+
+                <!-- AllySpin Link -->
+                <a href="https://tinyurl.com/AllyspinMerkur" target="_blank" class="link-button flex flex-col">
+                    <div class="flex items-center justify-between">
+                        <p class="font-extrabold text-xl flex items-center">
+                            <span class="text-2xl mr-3 text-accent-icon">🚀</span>
+                            AllySpin
+                        </p>
+                        <i class="fas fa-chevron-right text-accent-arrow"></i>
+                    </div>
+                    <p class="text-sm font-medium text-gray-400 mt-1 pl-10">
+                        250% bis zu 1000€ + 200 Freegames
+                    </p>
+                </a>
+
+                <!-- SGCasino Link -->
+                <a href="https://tinyurl.com/SGCasinoMerkur" target="_blank" class="link-button flex flex-col">
+                    <div class="flex items-center justify-between">
+                        <p class="font-extrabold text-xl flex items-center">
+                            <span class="text-2xl mr-3 text-accent-icon">🔥</span>
+                            SGCasino
+                        </p>
+                        <i class="fas fa-chevron-right text-accent-arrow"></i>
+                    </div>
+                    <p class="text-sm font-medium text-gray-400 mt-1 pl-10">
+                        100% bis zu 500€ + 200 Freegames
+                    </p>
+                </a>
+
+                <!-- SlotsPalace Link -->
+                <a href="https://tinyurl.com/SlotspalaceMerkur" target="_blank" class="link-button flex flex-col">
+                    <div class="flex items-center justify-between">
+                        <p class="font-extrabold text-xl flex items-center">
+                            <span class="text-2xl mr-3 text-accent-icon">🏰</span>
+                            SlotsPalace
+                        </p>
+                        <i class="fas fa-chevron-right text-accent-arrow"></i>
+                    </div>
+                    <p class="text-sm font-medium text-gray-400 mt-1 pl-10">
+                        Willkommenspaket bis zu 1000€
+                    </p>
+                </a>
+
+                <!-- Spinbara Link -->
+                <a href="https://tinyurl.com/SpinbaraMerkur" target="_blank" class="link-button flex flex-col">
+                    <div class="flex items-center justify-between">
+                        <p class="font-extrabold text-xl flex items-center">
+                            <span class="text-2xl mr-3 text-accent-icon">🎁</span>
+                            Spinbara
+                        </p>
+                        <i class="fas fa-chevron-right text-accent-arrow"></i>
+                    </div>
+                    <p class="text-sm font-medium text-gray-400 mt-1 pl-10">
+                        200% bis zu 3000$ Bonus
+                    </p>
+                </a>
+
+            </div>
+
+            <!-- Footer -->
+            <footer class="mt-12 text-center">
+                <p class="text-xs text-gray-500 mb-2">
+                    Glücksspiel kann süchtig machen. Spielen Sie verantwortungsbewusst.
+                </p>
+                <a href="https://www.bzga.de/service/infotelefone/gluecksspielsucht/" target="_blank" class="text-xs text-gray-500 hover:text-ruby-red underline">
+                    Hilfe unter BZgA.de
+                </a>
+                <p class="text-xs text-gray-600 mt-4">
+                    &copy; 2025 IDIOTENBONUS. Alle Rechte vorbehalten.
+                </p>
+            </footer>
+        </div>
+    </div>
+    
+    <!-- JavaScript für die dynamische Schneefall-Animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const snowContainer = document.getElementById('snow-container');
+            const numberOfSnowflakes = 100; // Anzahl der Schneeflocken
+
+            /**
+             * Generiert eine zufällige Zahl im angegebenen Bereich.
+             */
+            function getRandom(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            /**
+             * Generiert und stylt eine einzelne Schneeflocke.
+             */
+            function createSnowflake() {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+
+                // Zufällige Größe (2px bis 6px)
+                const size = getRandom(2, 6);
+                snowflake.style.width = `${size}px`;
+                snowflake.style.height = `${size}px`;
+
+                // Zufällige Startposition (0% bis 100% Breite)
+                snowflake.style.left = `${getRandom(-5, 105)}%`;
+                
+                // Zufällige Wobble-Stärke (Seitliche Bewegung)
+                const wobbleDistance = getRandom(30, 80);
+                snowflake.style.setProperty('--wobble-x', `${wobbleDistance}px`);
+
+                // Zufällige Fallgeschwindigkeit (15s bis 35s)
+                const fallDuration = getRandom(15, 35);
+                
+                // Zufällige Verzögerung, damit sie alle zu verschiedenen Zeitpunkten starten
+                const animationDelay = getRandom(0, fallDuration);
+                
+                // Animationseigenschaften setzen
+                snowflake.style.animation = 
+                    `snow-drift ${fallDuration}s linear infinite`;
+                
+                snowflake.style.animationDelay = `-${animationDelay}s`;
+                
+                // Opazität basierend auf Größe/Entfernung
+                snowflake.style.opacity = getRandom(0.4, 0.9);
+
+                snowContainer.appendChild(snowflake);
+            }
+
+            // Generiere alle Schneeflocken
+            for (let i = 0; i < numberOfSnowflakes; i++) {
+                createSnowflake();
+            }
+        });
+    </script>
+
+</body>
+</html>
